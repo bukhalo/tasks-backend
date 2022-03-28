@@ -32,13 +32,17 @@ const main = async (): Promise<void> => {
       let user = null;
 
       if (token) {
-        const tokenPayload = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET!);
-        user = {
-          // @ts-ignore
-          id: new ObjectId(tokenPayload.id),
-          // @ts-ignore
-          role: tokenPayload.role,
-        };
+        try {
+          const tokenPayload = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET!);
+          user = {
+            // @ts-ignore
+            id: new ObjectId(tokenPayload.id),
+            // @ts-ignore
+            role: tokenPayload.role,
+          };
+        } catch (e) {
+          console.error(e);
+        }
       }
 
       const db = mongoClient.db('main');
