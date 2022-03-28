@@ -45,7 +45,7 @@ const main = async (): Promise<void> => {
         }
       }
 
-      const db = mongoClient.db('main');
+      const db = mongoClient.db('meta');
       const usersCollection = db.collection<User>('users');
       const tasksCollection = db.collection<Task>('tasks');
       return {
@@ -63,7 +63,7 @@ const main = async (): Promise<void> => {
   await apolloServer.start();
   apolloServer.applyMiddleware({ app });
   app.listen({ port: 4000 });
-  console.log('GraphQL Playground: http://localhost:4000');
+  console.log('GraphQL Playground: http://localhost:4000/grapql');
 };
 
 main();
